@@ -60,4 +60,7 @@ if [ -n "$BUILD_THUMBPRINT" ] ; then
 fi
 echo "ro.build.characteristics=$TARGET_AAPT_CHARACTERISTICS"
 
+# OctOS properties
+echo "ro.octos.device=$OCTOS_DEVICE"
+
 echo "# end build properties"
