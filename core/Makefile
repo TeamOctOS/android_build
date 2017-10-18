@@ -2435,14 +2435,14 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) \
 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
-DU_TARGET_PACKAGE := $(PRODUCT_OUT)/$(DU_VERSION).zip
+OCTOS_TARGET_PACKAGE := $(PRODUCT_OUT)/$(OCTOS_VERSION).zip
 
 .PHONY: otapackage bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
-	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(DU_TARGET_PACKAGE)
-	$(hide) $(MD5SUM) $(DU_TARGET_PACKAGE) > $(DU_TARGET_PACKAGE).md5sum
-	@echo -e "Package complete: $(DU_TARGET_PACKAGE)"
+	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(OCTOS_TARGET_PACKAGE)
+	$(hide) $(MD5SUM) $(DU_TARGET_PACKAGE) > $(OCTOS_TARGET_PACKAGE).md5sum
+	@echo -e "Package complete: $(OCTOS_TARGET_PACKAGE)"
 
 endif    # build_ota_package
 
