@@ -565,7 +565,7 @@ function breakfast()
     OCTOS_DEVICES_ONLY="true"
     unset LUNCH_MENU_CHOICES
     add_lunch_combo full-eng
-    if [[ $( grep -i "codeaurora" "${1}"manifest/oreo_default.xml) ]]; then
+    if [[ $( grep -i "codeaurora" manifest/oreo_default.xml) ]]; then
     for caf in `/bin/ls vendor/octos/caf-vendorsetup.sh 2> /dev/null`
         do
             echo "including $caf"
@@ -579,6 +579,20 @@ function breakfast()
             . $aosp
         done
     unset aosp
+    fi
+
+    if [ $# -eq 0 ]; then
+        # No arguments, so let's have the full menu
+        lunch
+    else
+        echo "z$target" | grep -q "-"
+        if [ $? -eq 0 ]; then
+            # A buildtype was specified, assume a full device name
+            lunch $target
+        else
+            # This is probably just the du model name
+            lunch octos_$target-userdebug
+        fi
     fi
 
     return $?
@@ -651,7 +665,7 @@ function lunch()
         # if we can't find the product, try to grab it from our github
         T=$(gettop)
         pushd $T > /dev/null
-    if [[ $( grep -i "codeaurora" "${1}"manifest/oreo_default.xml) ]]; then
+    if [[ $( grep -i "codeaurora" manifest/oreo_default.xml) ]]; then
         vendor/extras/tools/roomservice-caf.py $product
     else
         vendor/extras/tools/roomservice.py $product
@@ -1769,7 +1783,7 @@ if [ "x$SHELL" != "x/bin/bash" ]; then
 fi
 
 # Execute the contents of any caf-vendorsetup.sh files we can find.
-if [[ $( grep -r "codeaurora" "${1}"manifest/* ) ]]; then
+if [[ $( grep -r "codeaurora" manifest/* ) ]]; then
     for caf in `test -d device && find -L device -maxdepth 4 -name 'caf-vendorsetup.sh' 2> /dev/null | sort` \
              `test -d vendor && find -L vendor -maxdepth 4 -name 'caf-vendorsetup.sh' 2> /dev/null | sort` \
              `test -d product && find -L product -maxdepth 4 -name 'caf-vendorsetup.sh' 2> /dev/null | sort`
