@@ -565,7 +565,7 @@ function breakfast()
     OCTOS_DEVICES_ONLY="true"
     unset LUNCH_MENU_CHOICES
     add_lunch_combo full-eng
-    if [[ $( grep -i "codeaurora" manifest/oreo_default.xml) ]]; then
+    if [[ $( grep -i "codeaurora" manifest/default.xml) ]]; then
     for caf in `/bin/ls vendor/octos/caf-vendorsetup.sh 2> /dev/null`
         do
             echo "including $caf"
@@ -665,7 +665,7 @@ function lunch()
         # if we can't find the product, try to grab it from our github
         T=$(gettop)
         pushd $T > /dev/null
-    if [[ $( grep -i "codeaurora" manifest/oreo_default.xml) ]]; then
+    if [[ $( grep -i "codeaurora" manifest/default.xml) ]]; then
         vendor/extras/tools/roomservice-caf.py $product
     else
         vendor/extras/tools/roomservice.py $product
