@@ -898,10 +898,6 @@ include $(BUILD_SYSTEM)/soong_config.mk
 endif
 
 ifneq ($(OCTOS_BUILD),)
-## We need to be sure the global selinux policies are included
-## last, to avoid accidental resetting by device configs
-$(eval include device/octos/sepolicy/common/sepolicy.mk)
-
 # Include any vendor specific config.mk file
 -include $(TOPDIR)vendor/*/build/core/config.mk
 
